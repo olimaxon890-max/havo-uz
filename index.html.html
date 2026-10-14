@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1f3b3b">
+<meta name="color-scheme" content="dark">
+<title>Havo.uz — O'zbekiston havo sifati monitoringi</title>
+<meta name="description" content="O'zbekiston shaharlarida havo sifati, harorat va namlik real vaqtda, oddiy tilda va tavsiyalar bilan.">
+<style>
+:root{--bg:#1f3b3b;--card:#2c4f4d;--line:#4a7270;--mut:#b9d3cf;--g:#90ee90}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:#fff;font:16px/1.6 system-ui,Arial,sans-serif}
+a{color:var(--g)}
+.w{max-width:1000px;margin:0 auto;padding:0 max(20px,env(safe-area-inset-right)) 0 max(20px,env(safe-area-inset-left))}
+header{position:sticky;top:0;z-index:5;background:#1f3b3bee;backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+header .w{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding-top:10px;padding-bottom:10px}
+.logo{font-weight:800;font-size:20px}
+nav a{margin-left:16px;text-decoration:none;color:var(--mut);font-weight:600}
+nav a:hover{color:var(--g)}
+section{padding:46px 0;border-top:1px solid var(--line);scroll-margin-top:60px}
+h1{font-size:clamp(30px,5vw,46px);line-height:1.15;margin:0 0 12px}
+h2{font-size:28px;margin:0 0 8px}
+h3{margin:0 0 6px;color:var(--g)}
+.lead{color:var(--mut);max-width:62ch;margin:0 0 14px}
+.small{font-size:14px;color:var(--mut)}
+.hero{display:grid;grid-template-columns:1.1fr 1fr;gap:28px;align-items:center;padding:40px max(20px,env(safe-area-inset-right)) 40px max(20px,env(safe-area-inset-left))}
+select{background:var(--card);color:#fff;border:2px solid var(--g);border-radius:12px;padding:10px 16px;font:inherit;cursor:pointer}
+.big{background:var(--card);border-radius:20px;padding:24px;border-left:8px solid #8be08b}
+.big h2{margin:0}
+.num{font-size:76px;font-weight:800;line-height:1.1}
+.lvl{font-size:20px;font-weight:700;margin-bottom:14px}
+.mini{display:flex;gap:12px}
+.mini div{flex:1;background:#00000030;border-radius:12px;padding:10px;text-align:center}
+.mini b{display:block;font-size:26px;color:var(--g)}
+.mini span{font-size:13px;color:var(--mut)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:16px}
+.card{background:var(--card);border-radius:14px;padding:16px}
+.card .v{display:block;font-size:30px;font-weight:800;color:var(--g)}
+.tip{border-left:6px solid #8be08b}
+.tip b{display:block;margin-bottom:4px}
+.scale{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-top:16px}
+.scale div{padding:12px;border-radius:10px;color:#111;font-weight:700}
+.scale small{display:block;font-weight:400}
+.tw{overflow-x:auto;margin-top:16px}
+table{width:100%;border-collapse:collapse;min-width:420px}
+th,td{padding:10px;text-align:left;border-top:1px solid var(--line)}
+th{color:var(--g);border-top:0}
+tbody tr{cursor:pointer}
+tbody tr:hover{background:#ffffff12}
+.dot{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:8px}
+.steps .card b{color:var(--g)}
+.note{background:#00000030;border-radius:12px;padding:14px;margin-top:16px;color:var(--mut)}
+footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--mut);font-size:14px}
+@media(max-width:760px){.hero{grid-template-columns:1fr}.num{font-size:60px}nav a{margin:0 12px 0 0}}
+input,textarea{width:100%;background:#00000030;color:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font:inherit;margin-top:6px}
+input:focus,textarea:focus,select:focus-visible,tbody tr:focus-visible,.btn:focus-visible{outline:2px solid var(--g)}
+textarea{min-height:110px;resize:vertical}
+.btn{background:var(--g);color:#123;border:0;border-radius:12px;padding:12px 22px;font:inherit;font-weight:700;cursor:pointer;margin-top:12px}
+.btn:disabled{opacity:.6;cursor:wait}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+#fs{margin-top:10px;font-weight:600}
+.hp{position:absolute;left:-9999px}
+@media(max-width:760px){.fr{grid-template-columns:1fr}}
+body{overflow-x:hidden;-webkit-text-size-adjust:100%}
+.card,.note,td{overflow-wrap:anywhere}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media(max-width:760px){
+header{padding-top:env(safe-area-inset-top)}
+header .w{flex-direction:column;align-items:flex-start;gap:2px;flex-wrap:nowrap}
+nav{display:flex;gap:2px;width:100%;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+nav::-webkit-scrollbar{display:none}
+nav a,nav a:first-child{margin:0;padding:10px 12px;white-space:nowrap;flex:none}
+section{padding:32px 0;scroll-margin-top:100px}
+h2{font-size:24px}
+.hero{padding-top:24px;padding-bottom:24px;gap:20px}
+select{width:100%;min-height:46px;margin-top:6px;font-size:16px}
+.big{padding:18px}
+.btn{min-height:46px}
+th,td{padding:12px 8px}
+tbody tr{-webkit-tap-highlight-color:transparent}
+tbody tr:active{background:#ffffff22}
+}
+@media(max-width:480px){
+.num{font-size:56px}
+.mini b{font-size:22px}
+.grid{grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.scale{grid-template-columns:repeat(2,1fr)}
+.card .v{font-size:26px}
+.card{padding:14px}
+.tw{margin-left:-4px;margin-right:-4px}
+table{min-width:0;font-size:14px}
+th,td{padding:12px 6px}
+#tips,#cinfo{grid-template-columns:1fr}
+footer{padding-bottom:calc(30px + env(safe-area-inset-bottom))}
+}
+#lg{padding:6px 10px;border-width:1px;margin:0;font-size:14px}
+#mp{width:100%;height:auto;max-height:480px;display:block;margin-top:16px}
+.mp{cursor:pointer}.mp:focus-visible circle{stroke:var(--g)}
+@media(max-width:760px){#lg{width:auto;min-height:36px;margin:0 0 6px}}
+</style>
+</head>
+<body>
+
+<header><div class="w">
+  <span class="logo">🌿 Havo.uz</span>
+  <nav><a href="#top">Monitoring</a><a href="#xarita">Xarita</a><a href="#shaharlar">Shaharlar</a><a href="#moddalar">Moddalar</a><a href="#loyiha">Loyiha</a><a href="#aloqa">Aloqa</a></nav>
+  <select id="lg" aria-label="Til / Язык / Language"><option value="uz">O'zbekcha</option><option value="ru">Русский</option><option value="en">English</option></select>
+</div></header>
+
+<div class="w hero" id="top">
+  <div>
+    <h1>Havo sifatini biling, sog'lig'ingizni asrang</h1>
+    <p class="lead">O'zbekiston shaharlarida havo sifati, harorat va namlik: real vaqtda, oddiy tilda va aniq tavsiyalar bilan.</p>
+    <label for="sel" class="small">Shaharni tanlang</label><br>
+    <select id="sel"></select>
+    <p class="small" id="stat">Ma'lumot yuklanmoqda...</p>
+    <button class="btn" id="rt" hidden>Qayta urinish</button>
+  </div>
+  <div class="big" id="big">
+    <div class="small">Hozirgi holat</div>
+    <h2 id="city">—</h2>
+    <div class="num" id="aqi">...</div>
+    <div class="lvl" id="lvl">...</div>
+    <div class="mini">
+      <div><b id="tmp">...</b><span>Harorat</span></div>
+      <div><b id="hum">...</b><span>Namlik</span></div>
+    </div>
+  </div>
+</div>
+
+<section><div class="w">
+  <h2>Bugungi tavsiya</h2>
+  <p class="lead">Havo sifatiga qarab nima qilish kerakligi.</p>
+  <div class="grid" id="tips">
+    <div class="card tip"><b>Hamma uchun</b><span id="t1"></span></div>
+    <div class="card tip"><b>Bolalar va sezgir odamlar</b><span id="t2"></span></div>
+    <div class="card tip"><b>Sport va sayr</b><span id="t3"></span></div>
+  </div>
+  <p class="small">Umumiy tavsiya, tibbiy maslahat emas.</p>
+  <h3 style="margin-top:28px">Havo sifati indeksi (AQI) shkalasi</h3>
+  <div class="scale" id="scale"></div>
+</div></section>
+
+<section id="xarita"><div class="w">
+  <h2>O'zbekiston xaritasi</h2>
+  <p class="lead">Har bir doira shaharning hozirgi havo indeksini ko'rsatadi. Bossangiz, tepada batafsil ko'rsatiladi.</p>
+  <svg id="mp" viewBox="0 0 540 360" role="group" aria-label="Xarita"></svg>
+  <p class="small">Kontur taxminiy, faqat joylashuvni ko'rsatish uchun.</p>
+</div></section>
+
+<section id="shaharlar"><div class="w">
+  <h2>Shaharlar reytingi</h2>
+  <p class="lead">Eng ifloslangan shahardan eng tozasigacha. Shaharni bossangiz, tepada batafsil ko'rsatiladi.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Shahar</th><th>Indeks</th><th>Holat</th><th>Harorat</th></tr></thead>
+    <tbody id="tb"></tbody>
+  </table></div>
+</div></section>
+
+<section id="moddalar"><div class="w">
+  <h2>Havoni nima ifloslantiryapti?</h2>
+  <p class="lead">Tanlangan shahar uchun asosiy ifloslantiruvchi moddalar (µg/m³).</p>
+  <div class="grid" id="poll"></div>
+</div></section>
+
+<section id="loyiha"><div class="w">
+  <h2>Loyiha haqida</h2>
+  <div class="grid">
+    <div class="card"><h3>Muammo</h3>Havo ifloslanishi sog'liqqa ta'sir qiladi, lekin oddiy odam bugun havo qanchalik toza ekanini bilmaydi va nima qilishni tushunmaydi.</div>
+    <div class="card"><h3>Yechim</h3>Bitta sayt: shahar tanlanadi, havo holati rang va so'z bilan ko'rsatiladi, bolalar, sezgir odamlar va sportchilar uchun alohida tavsiya beriladi.</div>
+  </div>
+  <h3 style="margin-top:28px">Kimlarga foyda?</h3>
+  <div class="grid">
+    <div class="card"><b>Oilalar va maktablar</b><br>Bolalarni ko'chaga chiqarish haqida qaror qilish.</div>
+    <div class="card"><b>Sezgir odamlar</b><br>Nafas yo'li kasalligi borlar va keksalar uchun ogohlantirish.</div>
+    <div class="card"><b>Fermer va quruvchilar</b><br>Ish rejasini havo va harorat bo'yicha tuzish.</div>
+    <div class="card"><b>Jurnalist va mahallalar</b><br>Ishonchli, tushunarli ma'lumot manbasi.</div>
+  </div>
+  <h3 style="margin-top:28px">Rivojlanish rejasi</h3>
+  <div class="grid steps">
+    <div class="card"><b>1. Hozir</b><br>Shaharlar monitoringi, tavsiyalar, O'zbekiston xaritasi, uch tilli sayt (o'zbek, rus, ingliz) va Telegram kanalga ogohlantirish yuboradigan bot (bot.py).</div>
+    <div class="card"><b>2. Keyingi</b><br>Botni doimiy ishlaydigan serverga qo'yish va foydalanuvchi o'zi shahar tanlab obuna bo'ladigan qilish.</div>
+    <div class="card"><b>3. Kelajak</b><br>Maktablarga arzon sensorlar o'rnatib, o'z real ma'lumotimizni yig'ish va ochiq API berish.</div>
+  </div>
+  <div class="note"><b>Ma'lumot haqida halol izoh.</b> Sayt Open-Meteo orqali CAMS atmosfera modeli hisoblarini ko'rsatadi. Bu model hisobi, joyda o'rnatilgan sensor o'lchovi emas, shuning uchun aniq bir ko'chadagi qiymatdan farq qilishi mumkin. Real sensorlar keyingi bosqichda qo'shiladi.</div>
+</div></section>
+
+<section id="aloqa"><div class="w">
+  <h2>Aloqa</h2>
+  <p class="lead">Taklif, savol yoki hamkorlik bo'lsa, yozing.</p>
+  <div class="grid" id="cinfo"></div>
+  <form class="card" id="cf" style="margin-top:16px" novalidate>
+    <div class="fr">
+      <label>Ismingiz<input id="fn" required maxlength="80" autocomplete="name"></label>
+      <label>Email yoki Telegram<input id="fc" required maxlength="120"></label>
+    </div>
+    <label>Xabar<textarea id="fm" required maxlength="2000"></textarea></label>
+    <input class="hp" id="fh" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <button class="btn" type="submit" id="fb">Yuborish</button>
+    <div id="fs" role="status"></div>
+  </form>
+</div></section>
+
+<footer><div class="w">
+  Ma'lumot: <a href="https://open-meteo.com" target="_blank" rel="noopener">Open-Meteo</a>, CAMS ENSEMBLE. Loyiha: Havo.uz.
+</div></footer>
+
+<script>
+const C=[["Toshkent",41.31,69.28],["Samarqand",39.65,66.96],["Buxoro",39.77,64.42],["Namangan",41.00,71.67],["Andijon",40.78,72.34],["Nukus",42.46,59.61],["Farg'ona",40.38,71.78],["Qo'qon",40.53,70.94],["Qarshi",38.86,65.79],["Termiz",37.22,67.28],["Jizzax",40.12,67.84],["Guliston",40.49,68.78],["Navoiy",40.10,65.37],["Urganch",41.55,60.63]];
+const L=[
+[50,"Yaxshi","#8be08b","Havo toza, odatdagidek yashashingiz mumkin.","Cheklov yo'q.","Tashqarida mashq qilish uchun qulay."],
+[100,"O'rtacha","#f5d90a","Havo qabul qilinadigan darajada.","Juda sezgir odamlar uzoq tashqi mashqlardan ehtiyot bo'lsin.","Odatdagidek mashq qilish mumkin."],
+[150,"Sezgirlar uchun zararli","#ffa940","Ko'pchilik uchun xavf kam.","Bolalar, keksalar va nafas yo'li kasalligi borlar tashqarida kamroq bo'lsin.","Uzoq va og'ir mashqni kamaytiring."],
+[200,"Zararli","#ff5c5c","Tashqarida uzoq qolishni kamaytiring.","Uyda qoling, derazalarni yoping.","Mashqni uyga ko'chiring."],
+[1e9,"Juda zararli","#d77be0","Zaruratsiz chiqmang; chiqsangiz himoya niqobi (N95/FFP2) taqing.","Uyda qoling, derazalarni yoping.","Tashqarida mashq qilmang."]];
+const NA=[0,"Ma'lumot yo'q","#999","—","—","—"];
+const P=[["PM2.5","pm2_5","Juda mayda zarralar, o'pkaning chuqur qismigacha yetadi"],["PM10","pm10","Yo'l va qurilish changi"],["Ozon (O₃)","ozone","Quyosh nuri va tutun reaksiyasidan"],["NO₂","nitrogen_dioxide","Transport va sanoat tutuni"],["SO₂","sulphur_dioxide","Ko'mir va neft yoqishdan"],["CO (is gazi)","carbon_monoxide","Yoqilg'i to'liq yonmaganda"]];
+const $=id=>document.getElementById(id);
+const T=v=>v==null?"—":Math.round(v)+"°",H=v=>v==null?"—":Math.round(v)+"%";
+const lv=a=>a==null?NA:L.find(l=>a<=l[0]);
+const rng=["0–50","51–100","101–150","151–200","201+"];
+let D=[],sel=0,ST=["Ma'lumot yuklanmoqda...",""];
+
+const bo=()=>{$("sel").innerHTML="";C.forEach((c,i)=>{const o=document.createElement("option");o.value=i;o.textContent=tr(c[0]);$("sel").appendChild(o)});$("sel").value=sel};
+const bs=()=>{$("scale").innerHTML=L.map((l,i)=>`<div style="background:${l[2]}">${tr(l[1])}<small>${rng[i]}</small></div>`).join("")};
+$("sel").addEventListener("change",e=>{sel=+e.target.value;render()});
+
+function render(){
+  if(!D.length)return;
+  const d=D[sel],A=d.a.us_aqi,l=lv(A);
+  $("sel").value=sel;
+  $("city").textContent=tr(d.n);
+  $("aqi").textContent=A??"—";
+  $("aqi").style.color=l[2];
+  $("lvl").textContent=tr(l[1]);
+  $("big").style.borderLeftColor=l[2];
+  $("tmp").textContent=T(d.w.temperature_2m);
+  $("hum").textContent=H(d.w.relative_humidity_2m);
+  ["t1","t2","t3"].forEach((id,k)=>$(id).textContent=tr(l[3+k]));
+  document.querySelectorAll(".tip").forEach(t=>t.style.borderLeftColor=l[2]);
+  $("poll").innerHTML=P.map(p=>{const v=d.a[p[1]];return `<div class="card"><span class="small">${tr(p[0])}</span><span class="v">${v==null?"—":Math.round(v)}</span><span class="small">${tr(p[2])}</span></div>`}).join("");
+  map();
+  const order=D.map((_,i)=>i).sort((x,y)=>(D[y].a.us_aqi??-1)-(D[x].a.us_aqi??-1));
+  $("tb").innerHTML=order.map(i=>{const q=D[i],ll=lv(q.a.us_aqi);return `<tr data-i="${i}" tabindex="0"><td><span class="dot" style="background:${ll[2]}"></span>${tr(q.n)}</td><td><b>${q.a.us_aqi??"—"}</b></td><td>${tr(ll[1])}</td><td>${T(q.w.temperature_2m)}</td></tr>`}).join("");
+  $("tb").querySelectorAll("tr").forEach(r=>{const go=()=>{sel=+r.dataset.i;render();$("top").scrollIntoView()};r.addEventListener("click",go);r.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();go()}})});
+}
+
+let LG="uz";try{LG=localStorage.getItem("th-lang")||(/^ru/.test(navigator.language)?"ru":/^en/.test(navigator.language)?"en":"uz")}catch(_){}
+const X={
+"Monitoring":["Мониторинг","Monitoring"],"Xarita":["Карта","Map"],"Shaharlar":["Города","Cities"],"Moddalar":["Вещества","Pollutants"],"Loyiha":["Проект","Project"],"Aloqa":["Контакты","Contact"],
+"Havo sifatini biling, sog'lig'ingizni asrang":["Знайте качество воздуха, берегите здоровье","Know your air, protect your health"],
+"O'zbekiston shaharlarida havo sifati, harorat va namlik: real vaqtda, oddiy tilda va aniq tavsiyalar bilan.":["Качество воздуха, температура и влажность в городах Узбекистана: в реальном времени, простым языком и с понятными советами.","Air quality, temperature and humidity in Uzbekistan's cities: in real time, in plain language, with clear advice."],
+"Shaharni tanlang":["Выберите город","Choose a city"],"Ma'lumot yuklanmoqda...":["Загрузка данных...","Loading data..."],"Qayta urinish":["Повторить","Retry"],"Hozirgi holat":["Текущее состояние","Current status"],"Harorat":["Температура","Temperature"],"Namlik":["Влажность","Humidity"],
+"Bugungi tavsiya":["Совет на сегодня","Today's advice"],"Havo sifatiga qarab nima qilish kerakligi.":["Что делать в зависимости от качества воздуха.","What to do depending on air quality."],"Hamma uchun":["Для всех","For everyone"],"Bolalar va sezgir odamlar":["Дети и чувствительные люди","Children and sensitive people"],"Sport va sayr":["Спорт и прогулки","Sport and walks"],
+"Umumiy tavsiya, tibbiy maslahat emas.":["Общий совет, не медицинская рекомендация.","General advice, not medical advice."],"Havo sifati indeksi (AQI) shkalasi":["Шкала индекса качества воздуха (AQI)","Air Quality Index (AQI) scale"],
+"O'zbekiston xaritasi":["Карта Узбекистана","Map of Uzbekistan"],"Har bir doira shaharning hozirgi havo indeksini ko'rsatadi. Bossangiz, tepada batafsil ko'rsatiladi.":["Каждый круг показывает текущий индекс воздуха города. Нажмите, чтобы увидеть подробности вверху.","Each circle shows the city's current air index. Tap it to see details at the top."],"Kontur taxminiy, faqat joylashuvni ko'rsatish uchun.":["Контур приблизительный, только для показа расположения.","The outline is approximate, for showing location only."],
+"Shaharlar reytingi":["Рейтинг городов","City ranking"],"Eng ifloslangan shahardan eng tozasigacha. Shaharni bossangiz, tepada batafsil ko'rsatiladi.":["От самого загрязнённого города до самого чистого. Нажмите на город, чтобы увидеть подробности вверху.","From the most polluted city to the cleanest. Tap a city to see details at the top."],
+"Shahar":["Город","City"],"Indeks":["Индекс","Index"],"Holat":["Состояние","Status"],
+"Havoni nima ifloslantiryapti?":["Что загрязняет воздух?","What is polluting the air?"],"Tanlangan shahar uchun asosiy ifloslantiruvchi moddalar (µg/m³).":["Основные загрязняющие вещества для выбранного города (мкг/м³).","Main pollutants for the selected city (µg/m³)."],
+"Loyiha haqida":["О проекте","About the project"],"Muammo":["Проблема","Problem"],"Yechim":["Решение","Solution"],
+"Havo ifloslanishi sog'liqqa ta'sir qiladi, lekin oddiy odam bugun havo qanchalik toza ekanini bilmaydi va nima qilishni tushunmaydi.":["Загрязнение воздуха влияет на здоровье, но обычный человек не знает, насколько чист воздух сегодня и что делать.","Air pollution affects health, but ordinary people don't know how clean the air is today or what to do about it."],
+"Bitta sayt: shahar tanlanadi, havo holati rang va so'z bilan ko'rsatiladi, bolalar, sezgir odamlar va sportchilar uchun alohida tavsiya beriladi.":["Один сайт: выбираете город, состояние воздуха показано цветом и словами, есть отдельные советы для детей, чувствительных людей и спортсменов.","One site: pick a city, see air quality in color and words, with separate advice for children, sensitive people and athletes."],
+"Kimlarga foyda?":["Кому это полезно?","Who benefits?"],"Oilalar va maktablar":["Семьи и школы","Families and schools"],"Bolalarni ko'chaga chiqarish haqida qaror qilish.":["Решать, выпускать ли детей на улицу.","Deciding whether to let children outside."],
+"Sezgir odamlar":["Чувствительные люди","Sensitive people"],"Nafas yo'li kasalligi borlar va keksalar uchun ogohlantirish.":["Предупреждение для людей с болезнями дыхательных путей и пожилых.","Warnings for people with respiratory conditions and the elderly."],
+"Fermer va quruvchilar":["Фермеры и строители","Farmers and builders"],"Ish rejasini havo va harorat bo'yicha tuzish.":["Планировать работу с учётом воздуха и температуры.","Planning work around air and temperature."],
+"Jurnalist va mahallalar":["Журналисты и махалли","Journalists and neighborhoods"],"Ishonchli, tushunarli ma'lumot manbasi.":["Надёжный и понятный источник данных.","A reliable, easy-to-understand data source."],
+"Rivojlanish rejasi":["План развития","Roadmap"],"1. Hozir":["1. Сейчас","1. Now"],"2. Keyingi":["2. Далее","2. Next"],"3. Kelajak":["3. Будущее","3. Future"],
+"Shaharlar monitoringi, tavsiyalar, O'zbekiston xaritasi, uch tilli sayt (o'zbek, rus, ingliz) va Telegram kanalga ogohlantirish yuboradigan bot (bot.py).":["Мониторинг городов, советы, карта Узбекистана, сайт на трёх языках (узбекский, русский, английский) и бот, отправляющий предупреждения в Telegram-канал (bot.py).","City monitoring, advice, a map of Uzbekistan, a trilingual site (Uzbek, Russian, English) and a bot that posts alerts to a Telegram channel (bot.py)."],
+"Botni doimiy ishlaydigan serverga qo'yish va foydalanuvchi o'zi shahar tanlab obuna bo'ladigan qilish.":["Запустить бота на постоянно работающем сервере и дать пользователям подписываться на выбранный город.","Run the bot on an always-on server and let users subscribe to a city of their choice."],
+"Maktablarga arzon sensorlar o'rnatib, o'z real ma'lumotimizni yig'ish va ochiq API berish.":["Установить недорогие датчики в школах, собирать собственные реальные данные и открыть API.","Install low-cost sensors in schools, collect our own real data and offer an open API."],
+"Ma'lumot haqida halol izoh.":["Честное замечание о данных.","An honest note about the data."],
+"Sayt Open-Meteo orqali CAMS atmosfera modeli hisoblarini ko'rsatadi. Bu model hisobi, joyda o'rnatilgan sensor o'lchovi emas, shuning uchun aniq bir ko'chadagi qiymatdan farq qilishi mumkin. Real sensorlar keyingi bosqichda qo'shiladi.":["Сайт показывает расчёты атмосферной модели CAMS через Open-Meteo. Это расчёт модели, а не измерение датчика на месте, поэтому значение может отличаться от реального на конкретной улице. Реальные датчики будут добавлены на следующем этапе.","The site shows CAMS atmospheric model estimates via Open-Meteo. This is a model calculation, not a measurement from an on-site sensor, so it may differ from the value on a specific street. Real sensors will be added in a later stage."],
+"Taklif, savol yoki hamkorlik bo'lsa, yozing.":["Предложения, вопросы или сотрудничество: пишите.","Suggestions, questions or partnership: write to us."],"Ismingiz":["Ваше имя","Your name"],"Email yoki Telegram":["Email или Telegram","Email or Telegram"],"Xabar":["Сообщение","Message"],"Yuborish":["Отправить","Send"],
+"Ma'lumot:":["Данные:","Data:"],", CAMS ENSEMBLE. Loyiha: Havo.uz.":[", CAMS ENSEMBLE. Проект: Havo.uz.",", CAMS ENSEMBLE. Project: Havo.uz."],
+"Yaxshi":["Хорошо","Good"],"O'rtacha":["Умеренно","Moderate"],"Sezgirlar uchun zararli":["Вредно для чувствительных","Unhealthy for sensitive groups"],"Zararli":["Вредно","Unhealthy"],"Juda zararli":["Очень вредно","Very unhealthy"],"Ma'lumot yo'q":["Нет данных","No data"],
+"Havo toza, odatdagidek yashashingiz mumkin.":["Воздух чистый, живите как обычно.","The air is clean, carry on as usual."],"Cheklov yo'q.":["Ограничений нет.","No restrictions."],"Tashqarida mashq qilish uchun qulay.":["Хорошо подходит для тренировок на улице.","Good for outdoor exercise."],
+"Havo qabul qilinadigan darajada.":["Воздух приемлемого качества.","The air quality is acceptable."],"Juda sezgir odamlar uzoq tashqi mashqlardan ehtiyot bo'lsin.":["Очень чувствительным людям стоит избегать долгих нагрузок на улице.","Very sensitive people should avoid long outdoor exertion."],"Odatdagidek mashq qilish mumkin.":["Можно тренироваться как обычно.","Exercise as usual."],
+"Ko'pchilik uchun xavf kam.":["Для большинства риск невелик.","Low risk for most people."],"Bolalar, keksalar va nafas yo'li kasalligi borlar tashqarida kamroq bo'lsin.":["Детям, пожилым и людям с болезнями дыхания лучше меньше бывать на улице.","Children, older adults and people with respiratory conditions should spend less time outside."],"Uzoq va og'ir mashqni kamaytiring.":["Сократите долгие и тяжёлые нагрузки.","Reduce long, heavy exertion."],
+"Tashqarida uzoq qolishni kamaytiring.":["Сократите время на улице.","Cut down time spent outdoors."],"Uyda qoling, derazalarni yoping.":["Оставайтесь дома, закройте окна.","Stay indoors, keep windows closed."],"Mashqni uyga ko'chiring.":["Перенесите тренировку в помещение.","Move exercise indoors."],
+"Zaruratsiz chiqmang; chiqsangiz himoya niqobi (N95/FFP2) taqing.":["Без нужды не выходите; если выходите, наденьте маску (N95/FFP2).","Avoid going out; if you must, wear a protective mask (N95/FFP2)."],"Tashqarida mashq qilmang.":["Не тренируйтесь на улице.","Don't exercise outdoors."],
+"Juda mayda zarralar, o'pkaning chuqur qismigacha yetadi":["Очень мелкие частицы, проникают глубоко в лёгкие","Very fine particles that reach deep into the lungs"],"Yo'l va qurilish changi":["Дорожная и строительная пыль","Road and construction dust"],"Quyosh nuri va tutun reaksiyasidan":["Образуется из солнечного света и дыма","From sunlight reacting with smoke"],"Transport va sanoat tutuni":["Выбросы транспорта и промышленности","Traffic and industrial fumes"],"Ko'mir va neft yoqishdan":["От сжигания угля и нефти","From burning coal and oil"],"Yoqilg'i to'liq yonmaganda":["При неполном сгорании топлива","From incomplete fuel combustion"],"Ozon (O₃)":["Озон (O₃)","Ozone (O₃)"],"CO (is gazi)":["CO (угарный газ)","CO (carbon monoxide)"],
+"Toshkent":["Ташкент","Tashkent"],"Samarqand":["Самарканд","Samarkand"],"Buxoro":["Бухара","Bukhara"],"Namangan":["Наманган","Namangan"],"Andijon":["Андижан","Andijan"],"Nukus":["Нукус","Nukus"],"Farg'ona":["Фергана","Fergana"],"Qo'qon":["Коканд","Kokand"],"Qarshi":["Карши","Karshi"],"Termiz":["Термез","Termez"],"Jizzax":["Джизак","Jizzakh"],"Guliston":["Гулистан","Gulistan"],"Navoiy":["Навои","Navoiy"],"Urganch":["Ургенч","Urgench"],
+"Yangilangan: ":["Обновлено: ","Updated: "],"Internet yo'q. Oxirgi saqlangan ma'lumot: ":["Нет интернета. Показаны последние сохранённые данные: ","No internet. Showing last saved data: "],"Ma'lumot yuklanmadi. Internetni tekshirib, qayta urinib ko'ring.":["Данные не загрузились. Проверьте интернет и повторите.","Data failed to load. Check your connection and retry."],
+"Muallif":["Автор","Author"],"Telegramda ulashish":["Поделиться в Telegram","Share on Telegram"],"Do'stlarga yuborish":["Отправить друзьям","Send to friends"],"Havolani nusxalash":["Скопировать ссылку","Copy link"],"Nusxalash":["Копировать","Copy"],"Loyiha yoqqan bo'lsa, do'stlaringiz, oilangiz va sinfdoshlaringiz bilan ulashing.":["Если проект понравился, поделитесь с друзьями, семьёй и одноклассниками.","If you like the project, share it with friends, family and classmates."],
+"Telegram ogohlantirish boti":["Telegram-бот с предупреждениями","Telegram alert bot"],"Obuna bo'lish":["Подписаться","Subscribe"],
+"Iltimos, hamma maydonni to'ldiring.":["Пожалуйста, заполните все поля.","Please fill in all fields."],"Yuborilmoqda...":["Отправка...","Sending..."],"Rahmat! Xabaringiz yuborildi.":["Спасибо! Сообщение отправлено.","Thank you! Your message was sent."],"Yuborilmadi. Keyinroq urinib ko'ring yoki to'g'ridan-to'g'ri yozing.":["Не отправлено. Попробуйте позже или напишите напрямую.","Not sent. Try again later or write directly."],
+"Havo.uz — O'zbekiston havo sifati monitoringi":["Havo.uz — мониторинг качества воздуха в Узбекистане","Havo.uz — Uzbekistan air quality monitoring"],"O'zbekiston shaharlarida havo sifati, harorat va namlik real vaqtda, oddiy tilda va tavsiyalar bilan.":["Качество воздуха, температура и влажность в городах Узбекистана в реальном времени, простым языком и с советами.","Air quality, temperature and humidity in Uzbekistan's cities in real time, in plain language with advice."]};
+const tr=s=>LG==="uz"?s:((X[s]||[])[LG==="ru"?0:1]||s);
+const ps=()=>{$("stat").textContent=tr(ST[0])+ST[1]};
+const OL=[[56,41.3],[56,44.8],[58.6,45.5],[61,44.3],[61,43.5],[64.5,43.6],[66,43],[66.5,42],[68,41.5],[69.2,41.4],[70.9,42.1],[71.3,41.1],[73.1,40.8],[71,40.2],[70,39.9],[68,39.6],[67.4,39],[67.7,37.3],[66.6,37.4],[65.6,37.4],[64.2,38.9],[62.4,39.9],[60.5,41],[59,42.3],[57,41.3]];
+function map(){
+  const x=lo=>(lo-55.8)*30,y=la=>(45.8-la)*38,pl="uddurudlddludd";
+  let h=`<polygon points="${OL.map(o=>x(o[0])+","+y(o[1])).join(" ")}" fill="#00000030" stroke="#4a7270" stroke-width="2"/>`;
+  C.forEach((c,i)=>{const a=D[i].a.us_aqi,l=lv(a),px=x(c[2]),py=y(c[1]),q=pl[i],n=tr(c[0]);
+    const lx=px+(q==="r"?14:q==="l"?-14:0),ly=py+(q==="u"?-15:q==="d"?25:4),an=q==="r"?"start":q==="l"?"end":"middle";
+    h+=`<g class="mp" data-i="${i}" tabindex="0" role="button" aria-label="${n}: ${a??"—"}"><circle cx="${px}" cy="${py}" r="${i===sel?13:10}" fill="${l[2]}" stroke="${i===sel?"#fff":"#0006"}" stroke-width="2"/><text x="${px}" y="${py+4}" text-anchor="middle" font-size="10" font-weight="800" fill="#111">${a??"—"}</text><text x="${lx}" y="${ly}" text-anchor="${an}" font-size="11" fill="#fff">${n}</text></g>`});
+  $("mp").innerHTML=h;
+}
+{const go=g=>{if(g){sel=+g.dataset.i;render();$("top").scrollIntoView()}};
+$("mp").addEventListener("click",e=>go(e.target.closest(".mp")));
+$("mp").addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();go(e.target.closest(".mp"))}})}
+const orig=new WeakMap();
+function tx(){const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let n;while(n=w.nextNode()){if(/^(SCRIPT|STYLE)$/.test(n.parentNode.nodeName))continue;if(!orig.has(n))orig.set(n,n.nodeValue);const o=orig.get(n),t=o.trim();if(t&&(X[t]||LG==="uz"))n.nodeValue=o.replace(t,()=>tr(t))}}
+function setLang(l){LG=l;try{localStorage.setItem("th-lang",l)}catch(_){}
+  $("lg").value=l;document.documentElement.lang=l;document.title=tr("Havo.uz — O'zbekiston havo sifati monitoringi");
+  document.querySelector('meta[name=description]').content=tr("O'zbekiston shaharlarida havo sifati, harorat va namlik real vaqtda, oddiy tilda va tavsiyalar bilan.");
+  $("mp").setAttribute("aria-label",tr("O'zbekiston xaritasi"));
+  tx();bs();bo();ps();render()}
+
+const Q={
+ aq:"https://air-quality-api.open-meteo.com/v1/air-quality?current=us_aqi,pm2_5,pm10,ozone,nitrogen_dioxide,sulphur_dioxide,carbon_monoxide&timezone=auto",
+ wx:"https://api.open-meteo.com/v1/forecast?current=temperature_2m,relative_humidity_2m&timezone=auto"};
+async function get(base,cs){
+  const ctl=new AbortController(),t=setTimeout(()=>ctl.abort(),15000);
+  try{
+    const r=await fetch(`${base}&latitude=${cs.map(c=>c[1]).join()}&longitude=${cs.map(c=>c[2]).join()}`,{signal:ctl.signal});
+    const j=await r.json();
+    if(!r.ok||j.error)throw new Error(j.reason||r.status);
+    return [].concat(j);
+  }finally{clearTimeout(t)}
+}
+async function both(cs){
+  const [a,w]=await Promise.all([get(Q.aq,cs),get(Q.wx,cs)]);
+  return cs.map((_,i)=>({a:(a[i]&&a[i].current)||{},w:(w[i]&&w[i].current)||{}}));
+}
+async function fetchAll(){
+  try{return await both(C)}catch(e){
+    // umumiy so'rov ishlamasa, har bir shaharni alohida so'raymiz
+    const r=await Promise.allSettled(C.map(c=>both([c])));
+    if(!r.some(x=>x.status==="fulfilled"))throw e;
+    return r.map(x=>x.status==="fulfilled"?x.value[0]:{a:{},w:{}});
+  }
+}
+const hm=t=>{const d=new Date(t);return String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0")};
+async function load(){
+  $("rt").hidden=true;
+  ST=["Ma'lumot yuklanmoqda...",""];ps();
+  try{
+    const R=await fetchAll();
+    D=C.map((c,i)=>({n:c[0],a:R[i].a,w:R[i].w}));
+    ST=["Yangilangan: ",hm(Date.now())];ps();
+    try{localStorage.setItem("toza-havo",JSON.stringify({t:Date.now(),D}))}catch(_){}
+    render();
+  }catch(e){
+    console.log("Xato:",e);
+    let c=null;
+    try{c=JSON.parse(localStorage.getItem("toza-havo"))}catch(_){}
+    if(c&&c.D&&c.D.length===C.length){
+      D=c.D;render();
+      ST=["Internet yo'q. Oxirgi saqlangan ma'lumot: ",hm(c.t)];ps();
+    }else{ST=["Ma'lumot yuklanmadi. Internetni tekshirib, qayta urinib ko'ring.",""+" ["+((e&&e.message)||e)+"]"];ps()}
+    $("rt").hidden=false;
+  }
+}
+$("rt").addEventListener("click",load);
+window.addEventListener("online",load);
+
+// ===== ALOQA SOZLAMALARI: shu qismni o'zingiznikiga almashtiring =====
+const CONTACT={
+  author:"Ism Familiya, 10-sinf",
+  school:"Maktab nomi",
+  telegram:"@username",
+  email:"sizning@email.uz",
+  bot:"", // ixtiyoriy: Telegram kanal havolasi, masalan https://t.me/tozahavo_uz
+  formUrl:"" // ixtiyoriy: Formspree manzili, masalan https://formspree.io/f/xxxxxxx
+};
+// =====================================================================
+(function(){
+  const c=CONTACT,ok=v=>v&&!/example\.com|@username|sizning@|Ism Familiya|Maktab nomi/.test(v);
+  const esc=t=>String(t).replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
+  let h="";
+  if(ok(c.author)||ok(c.school))h+=`<div class="card"><b>Muallif</b><br>${[c.author,c.school].filter(ok).map(esc).join("<br>")}</div>`;
+  if(ok(c.telegram)){const u=c.telegram.replace(/^@/,"");h+=`<div class="card"><b>Telegram</b><br><a href="https://t.me/${encodeURIComponent(u)}" target="_blank" rel="noopener">@${esc(u)}</a></div>`}
+  if(ok(c.email))h+=`<div class="card"><b>Email</b><br><a href="mailto:${esc(c.email)}">${esc(c.email)}</a></div>`;
+  if(!(ok(c.email)||c.formUrl)){
+    $("cf").hidden=true;
+    document.querySelector("#aloqa .lead").textContent="Loyiha yoqqan bo'lsa, do'stlaringiz, oilangiz va sinfdoshlaringiz bilan ulashing.";
+    h+=`<div class="card"><b>Telegramda ulashish</b><br><a target="_blank" rel="noopener" href="https://t.me/share/url?url=${encodeURIComponent(location.href)}&text=${encodeURIComponent("Havo.uz: O'zbekiston shaharlarida havo sifati monitoringi")}">Do'stlarga yuborish</a></div><div class="card"><b>Havolani nusxalash</b><br><button class="btn" id="cp" type="button" style="margin-top:6px">Nusxalash</button></div>`;
+  }
+  if(c.bot)h+=`<div class="card"><b>Telegram ogohlantirish boti</b><br><a href="${esc(c.bot)}" target="_blank" rel="noopener">Obuna bo'lish</a></div>`;
+  $("cinfo").innerHTML=h;
+  const cp=$("cp");
+  if(cp)cp.addEventListener("click",async()=>{
+    try{await navigator.clipboard.writeText(location.href);cp.textContent="Nusxalandi ✓"}
+    catch(_){prompt("Havolani nusxalang:",location.href)}
+  });
+  const f=$("cf"),st=$("fs"),b=$("fb");
+  const say=(t,col)=>{st.textContent=tr(t);st.style.color=col||"#fff"};
+  f.addEventListener("submit",async e=>{
+    e.preventDefault();
+    if($("fh").value)return;
+    const n=$("fn").value.trim(),k=$("fc").value.trim(),m=$("fm").value.trim();
+    if(!n||!k||m.length<5){say("Iltimos, hamma maydonni to'ldiring.","#ffa940");return}
+    if(c.formUrl){
+      b.disabled=true;say("Yuborilmoqda...");
+      try{
+        const r=await fetch(c.formUrl,{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify({name:n,contact:k,message:m})});
+        if(!r.ok)throw 0;
+        f.reset();say("Rahmat! Xabaringiz yuborildi.","#8be08b");
+      }catch(_){say("Yuborilmadi. Keyinroq urinib ko'ring yoki to'g'ridan-to'g'ri yozing.","#ff5c5c")}
+      b.disabled=false;return;
+    }
+    if(ok(c.email)){
+      const body=`Ism: ${n}\nAloqa: ${k}\n\n${m}`;
+      location.href=`mailto:${c.email}?subject=${encodeURIComponent("Havo.uz: xabar")}&body=${encodeURIComponent(body)}`;
+      say("Pochta ilovangiz ochiladi. U yerda 'Yuborish'ni bosing.","#8be08b");
+    }else say("Email manzili hali sozlanmagan.","#ff5c5c");
+  });
+})();
+
+$("lg").addEventListener("change",e=>setLang(e.target.value));setLang(LG);
+load();
+setInterval(load,30*60*1000);
+</script>
+</body>
+</html>
