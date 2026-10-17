@@ -95,18 +95,20 @@ th,td{padding:12px 6px}
 #tips,#cinfo{grid-template-columns:1fr}
 footer{padding-bottom:calc(30px + env(safe-area-inset-bottom))}
 }
+.fc{display:grid;grid-template-columns:repeat(auto-fit,minmax(104px,1fr));gap:10px;margin-top:16px}.fcd{text-align:center;display:flex;flex-direction:column;gap:4px;padding:12px 8px}.fcd .v{font-size:28px;font-weight:800}
 #lg{padding:6px 10px;border-width:1px;margin:0;font-size:14px}
 #mp{width:100%;height:auto;max-height:480px;display:block;margin-top:16px}
 .mp{cursor:pointer}.mp:focus-visible circle{stroke:var(--g)}
 @media(max-width:760px){#lg{width:auto;min-height:36px;margin:0 0 6px}}
 </style>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌿</text></svg>">
 </head>
 <body>
 
 <header><div class="w">
   <span class="logo">🌿 Havo.uz</span>
-  <nav><a href="#top">Monitoring</a><a href="#xarita">Xarita</a><a href="#shaharlar">Shaharlar</a><a href="#moddalar">Moddalar</a><a href="#loyiha">Loyiha</a><a href="#aloqa">Aloqa</a></nav>
-  <select id="lg" aria-label="Til / Язык / Language"><option value="uz">O'zbekcha</option><option value="ru">Русский</option><option value="en">English</option></select>
+  <nav><a href="#top">Monitoring</a><a href="#prognoz">Prognoz</a><a href="#xarita">Xarita</a><a href="#shaharlar">Shaharlar</a><a href="#moddalar">Moddalar</a><a href="#loyiha">Loyiha</a><a href="#aloqa">Aloqa</a></nav>
+  <select id="lg" aria-label="Til / Язык / Language"><option value="uz">O'zbekcha</option><option value="uzc">Ўзбекча</option><option value="ru">Русский</option><option value="en">English</option></select>
 </div></header>
 
 <div class="w hero" id="top">
@@ -141,6 +143,12 @@ footer{padding-bottom:calc(30px + env(safe-area-inset-bottom))}
   <p class="small">Umumiy tavsiya, tibbiy maslahat emas.</p>
   <h3 style="margin-top:28px">Havo sifati indeksi (AQI) shkalasi</h3>
   <div class="scale" id="scale"></div>
+</div></section>
+
+<section id="prognoz"><div class="w">
+  <h2>Haftalik prognoz</h2>
+  <p class="lead">Tanlangan shahar uchun 7 kunlik harorat, yomg'ir ehtimoli va havo indeksi (kunlik eng yuqori qiymat). Havo indeksi prognozi odatda 5 kungacha mavjud.</p>
+  <div class="fc" id="fc"></div>
 </div></section>
 
 <section id="xarita"><div class="w">
@@ -180,7 +188,7 @@ footer{padding-bottom:calc(30px + env(safe-area-inset-bottom))}
   </div>
   <h3 style="margin-top:28px">Rivojlanish rejasi</h3>
   <div class="grid steps">
-    <div class="card"><b>1. Hozir</b><br>Shaharlar monitoringi, tavsiyalar, O'zbekiston xaritasi, uch tilli sayt (o'zbek, rus, ingliz) va Telegram kanalga ogohlantirish yuboradigan bot (bot.py).</div>
+    <div class="card"><b>1. Hozir</b><br>Monitoring, tavsiyalar, xarita, 30 ta shahar, haftalik prognoz, 4 tilda sayt (o'zbek lotin va kirill, rus, ingliz) va Telegram kanalga ogohlantirish yuboradigan bot (bot.py).</div>
     <div class="card"><b>2. Keyingi</b><br>Botni doimiy ishlaydigan serverga qo'yish va foydalanuvchi o'zi shahar tanlab obuna bo'ladigan qilish.</div>
     <div class="card"><b>3. Kelajak</b><br>Maktablarga arzon sensorlar o'rnatib, o'z real ma'lumotimizni yig'ish va ochiq API berish.</div>
   </div>
@@ -208,7 +216,7 @@ footer{padding-bottom:calc(30px + env(safe-area-inset-bottom))}
 </div></footer>
 
 <script>
-const C=[["Toshkent",41.31,69.28],["Samarqand",39.65,66.96],["Buxoro",39.77,64.42],["Namangan",41.00,71.67],["Andijon",40.78,72.34],["Nukus",42.46,59.61],["Farg'ona",40.38,71.78],["Qo'qon",40.53,70.94],["Qarshi",38.86,65.79],["Termiz",37.22,67.28],["Jizzax",40.12,67.84],["Guliston",40.49,68.78],["Navoiy",40.10,65.37],["Urganch",41.55,60.63]];
+const C=[["Toshkent",41.31,69.28],["Samarqand",39.65,66.96],["Buxoro",39.77,64.42],["Namangan",41.00,71.67],["Andijon",40.78,72.34],["Nukus",42.46,59.61],["Farg'ona",40.38,71.78],["Qo'qon",40.53,70.94],["Qarshi",38.86,65.79],["Termiz",37.22,67.28],["Jizzax",40.12,67.84],["Guliston",40.49,68.78],["Navoiy",40.10,65.37],["Urganch",41.55,60.63],["Margilon",40.47,71.72],["Angren",41.02,70.14],["Olmaliq",40.85,69.6],["Chirchiq",41.47,69.58],["Bekobod",40.22,69.27],["Zarafshon",41.57,64.2],["Shahrisabz",39.06,66.83],["Kattaqo'rg'on",39.9,66.26],["Denov",38.27,67.89],["Xiva",41.38,60.36],["Qo'ng'irot",43.07,58.9],["Muynoq",43.77,59.02],["Chust",41.0,71.23],["Urgut",39.4,67.26],["Nurafshon",41.04,69.36],["Yangiyer",40.27,68.82]];
 const L=[
 [50,"Yaxshi","#8be08b","Havo toza, odatdagidek yashashingiz mumkin.","Cheklov yo'q.","Tashqarida mashq qilish uchun qulay."],
 [100,"O'rtacha","#f5d90a","Havo qabul qilinadigan darajada.","Juda sezgir odamlar uzoq tashqi mashqlardan ehtiyot bo'lsin.","Odatdagidek mashq qilish mumkin."],
@@ -241,7 +249,7 @@ function render(){
   ["t1","t2","t3"].forEach((id,k)=>$(id).textContent=tr(l[3+k]));
   document.querySelectorAll(".tip").forEach(t=>t.style.borderLeftColor=l[2]);
   $("poll").innerHTML=P.map(p=>{const v=d.a[p[1]];return `<div class="card"><span class="small">${tr(p[0])}</span><span class="v">${v==null?"—":Math.round(v)}</span><span class="small">${tr(p[2])}</span></div>`}).join("");
-  map();
+  map();fcl();
   const order=D.map((_,i)=>i).sort((x,y)=>(D[y].a.us_aqi??-1)-(D[x].a.us_aqi??-1));
   $("tb").innerHTML=order.map(i=>{const q=D[i],ll=lv(q.a.us_aqi);return `<tr data-i="${i}" tabindex="0"><td><span class="dot" style="background:${ll[2]}"></span>${tr(q.n)}</td><td><b>${q.a.us_aqi??"—"}</b></td><td>${tr(ll[1])}</td><td>${T(q.w.temperature_2m)}</td></tr>`}).join("");
   $("tb").querySelectorAll("tr").forEach(r=>{const go=()=>{sel=+r.dataset.i;render();$("top").scrollIntoView()};r.addEventListener("click",go);r.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();go()}})});
@@ -287,24 +295,42 @@ const X={
 "Telegram ogohlantirish boti":["Telegram-бот с предупреждениями","Telegram alert bot"],"Obuna bo'lish":["Подписаться","Subscribe"],
 "Iltimos, hamma maydonni to'ldiring.":["Пожалуйста, заполните все поля.","Please fill in all fields."],"Yuborilmoqda...":["Отправка...","Sending..."],"Rahmat! Xabaringiz yuborildi.":["Спасибо! Сообщение отправлено.","Thank you! Your message was sent."],"Yuborilmadi. Keyinroq urinib ko'ring yoki to'g'ridan-to'g'ri yozing.":["Не отправлено. Попробуйте позже или напишите напрямую.","Not sent. Try again later or write directly."],
 "Havo.uz — O'zbekiston havo sifati monitoringi":["Havo.uz — мониторинг качества воздуха в Узбекистане","Havo.uz — Uzbekistan air quality monitoring"],"O'zbekiston shaharlarida havo sifati, harorat va namlik real vaqtda, oddiy tilda va tavsiyalar bilan.":["Качество воздуха, температура и влажность в городах Узбекистана в реальном времени, простым языком и с советами.","Air quality, temperature and humidity in Uzbekistan's cities in real time, in plain language with advice."]};
-const tr=s=>LG==="uz"?s:((X[s]||[])[LG==="ru"?0:1]||s);
+Object.assign(X,{"Margilon":["Маргилан","Margilan"],"Angren":["Ангрен","Angren"],"Olmaliq":["Алмалык","Almalyk"],"Chirchiq":["Чирчик","Chirchiq"],"Bekobod":["Бекабад","Bekabad"],"Zarafshon":["Зарафшан","Zarafshan"],"Shahrisabz":["Шахрисабз","Shakhrisabz"],"Kattaqo'rg'on":["Каттакурган","Kattakurgan"],"Denov":["Денау","Denov"],"Xiva":["Хива","Khiva"],"Qo'ng'irot":["Кунград","Kungrad"],"Muynoq":["Муйнак","Muynak"],"Chust":["Чуст","Chust"],"Urgut":["Ургут","Urgut"],"Nurafshon":["Нурафшан","Nurafshon"],"Yangiyer":["Янгиер","Yangier"],"Prognoz":["Прогноз","Forecast"],"Haftalik prognoz":["Прогноз на неделю","Weekly forecast"],"Tanlangan shahar uchun 7 kunlik harorat, yomg'ir ehtimoli va havo indeksi (kunlik eng yuqori qiymat). Havo indeksi prognozi odatda 5 kungacha mavjud.":["Температура, вероятность дождя и индекс воздуха на 7 дней для выбранного города (максимум за день). Прогноз индекса воздуха обычно доступен до 5 дней.","7-day temperature, chance of rain and air index for the selected city (daily maximum). The air index forecast is usually available for up to 5 days."],"Prognoz yuklanmadi.":["Не удалось загрузить прогноз.","Forecast failed to load."],"Monitoring, tavsiyalar, xarita, 30 ta shahar, haftalik prognoz, 4 tilda sayt (o'zbek lotin va kirill, rus, ingliz) va Telegram kanalga ogohlantirish yuboradigan bot (bot.py).":["Мониторинг, советы, карта, 30 городов, недельный прогноз, сайт на 4 языках (узбекский латиницей и кириллицей, русский, английский) и бот, отправляющий предупреждения в Telegram-канал (bot.py).","Monitoring, advice, a map, 30 cities, a weekly forecast, a site in 4 languages (Uzbek Latin and Cyrillic, Russian, English) and a bot that posts alerts to a Telegram channel (bot.py)."]});
+const cy=s=>s.split(/(AQI|PM2\.5|PM10|NO₂|CO|O₃|Open-Meteo|CAMS ENSEMBLE|Email|µg\/m³|https?:\/\/\S+)/).map((p,i)=>{if(i%2)return p;
+  const M={sh:"ш",ch:"ч","o'":"ў","g'":"ғ",yo:"ё",yu:"ю",ya:"я",ye:"е",a:"а",b:"б",d:"д",e:"е",f:"ф",g:"г",h:"ҳ",i:"и",j:"ж",k:"к",l:"л",m:"м",n:"н",o:"о",p:"п",q:"қ",r:"р",s:"с",t:"т",u:"у",v:"в",x:"х",y:"й",z:"з"};
+  return p.replace(/\bE/g,"Э").replace(/\be/g,"э").replace(/(sh|ch|[og]['’‘ʻ`]|yo|yu|ya|ye|[a-z])/gi,m=>{const r=M[m.toLowerCase().replace(/['’‘ʻ`]/,"'")];return !r?m:m[0]!==m[0].toLowerCase()?r[0].toUpperCase()+r.slice(1):r}).replace(/(?<=[а-яёўқғҳ])['’‘ʻ`](?=[а-яёўқғҳ])/gi,"ъ")}).join("");
+const tr=s=>LG==="uz"?s:LG==="uzc"?cy(s):((X[s]||[])[LG==="ru"?0:1]||s);
+const FC={},FP={};
+async function fc(i){const c=C[i],q=`latitude=${c[1]}&longitude=${c[2]}&timezone=auto`;
+  try{const j=u=>fetch(u).then(r=>{if(!r.ok)throw new Error(r.status);return r.json()});
+    const [w,a]=await Promise.all([j(`https://api.open-meteo.com/v1/forecast?${q}&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max&forecast_days=7`),j(`https://air-quality-api.open-meteo.com/v1/air-quality?${q}&hourly=us_aqi&forecast_days=7`)]),mx={};
+    (a.hourly.time||[]).forEach((t,k)=>{const v=a.hourly.us_aqi[k],d=t.slice(0,10);if(v!=null&&(mx[d]==null||v>mx[d]))mx[d]=v});
+    FC[i]=w.daily.time.map((d,k)=>({d,a:mx[d],hi:w.daily.temperature_2m_max[k],lo:w.daily.temperature_2m_min[k],p:w.daily.precipitation_probability_max[k]}))
+  }catch(e){FC[i]=null}}
+function fcd(){const f=FC[sel],el=$("fc");
+  if(f===undefined){el.textContent=tr("Ma'lumot yuklanmoqda...");return}
+  if(!f){el.textContent=tr("Prognoz yuklanmadi.");return}
+  const lc=LG==="uzc"?"uz-Cyrl":LG;
+  el.innerHTML=f.map(x=>{const l=lv(x.a);let dn;try{dn=new Date(x.d+"T12:00").toLocaleDateString(lc,{weekday:"short",day:"numeric"})}catch(_){dn=x.d.slice(5)}
+    return `<div class="card fcd" style="border-top:5px solid ${l[2]}"><b>${dn}</b><span class="v">${x.a==null?"—":Math.round(x.a)}</span><small>${tr(l[1])}</small><span>${Math.round(x.hi)}° / ${Math.round(x.lo)}°</span><small>💧 ${x.p??"—"}%</small></div>`}).join("")}
+function fcl(){if(FC[sel]===undefined&&!FP[sel]){const i=sel;FP[i]=1;fc(i).then(fcd)}fcd()}
 const ps=()=>{$("stat").textContent=tr(ST[0])+ST[1]};
 const OL=[[56,41.3],[56,44.8],[58.6,45.5],[61,44.3],[61,43.5],[64.5,43.6],[66,43],[66.5,42],[68,41.5],[69.2,41.4],[70.9,42.1],[71.3,41.1],[73.1,40.8],[71,40.2],[70,39.9],[68,39.6],[67.4,39],[67.7,37.3],[66.6,37.4],[65.6,37.4],[64.2,38.9],[62.4,39.9],[60.5,41],[59,42.3],[57,41.3]];
 function map(){
   const x=lo=>(lo-55.8)*30,y=la=>(45.8-la)*38,pl="uddurudlddludd";
   let h=`<polygon points="${OL.map(o=>x(o[0])+","+y(o[1])).join(" ")}" fill="#00000030" stroke="#4a7270" stroke-width="2"/>`;
-  C.forEach((c,i)=>{const a=D[i].a.us_aqi,l=lv(a),px=x(c[2]),py=y(c[1]),q=pl[i],n=tr(c[0]);
-    const lx=px+(q==="r"?14:q==="l"?-14:0),ly=py+(q==="u"?-15:q==="d"?25:4),an=q==="r"?"start":q==="l"?"end":"middle";
-    h+=`<g class="mp" data-i="${i}" tabindex="0" role="button" aria-label="${n}: ${a??"—"}"><circle cx="${px}" cy="${py}" r="${i===sel?13:10}" fill="${l[2]}" stroke="${i===sel?"#fff":"#0006"}" stroke-width="2"/><text x="${px}" y="${py+4}" text-anchor="middle" font-size="10" font-weight="800" fill="#111">${a??"—"}</text><text x="${lx}" y="${ly}" text-anchor="${an}" font-size="11" fill="#fff">${n}</text></g>`});
+  C.forEach((c,i)=>{const a=D[i].a.us_aqi,l=lv(a),px=x(c[2]),py=y(c[1]),q=pl[i]||"",n=tr(c[0]),sm=i>13,on=i===sel;
+    const lx=px+(q==="r"?14:q==="l"?-14:0),ly=sm?py-12:py+(q==="u"?-15:q==="d"?25:4),an=q==="r"?"start":q==="l"?"end":"middle";
+    h+=`<g class="mp" data-i="${i}" tabindex="0" role="button" aria-label="${n}: ${a??"—"}"><title>${n}: ${a??"—"}</title><circle cx="${px}" cy="${py}" r="${sm?(on?9:6):on?13:10}" fill="${l[2]}" stroke="${on?"#fff":"#0006"}" stroke-width="2"/>${sm?"":`<text x="${px}" y="${py+4}" text-anchor="middle" font-size="10" font-weight="800" fill="#111">${a??"—"}</text>`}${sm&&!on?"":`<text x="${lx}" y="${ly}" text-anchor="${an}" font-size="11" fill="#fff">${n}</text>`}</g>`});
   $("mp").innerHTML=h;
 }
 {const go=g=>{if(g){sel=+g.dataset.i;render();$("top").scrollIntoView()}};
 $("mp").addEventListener("click",e=>go(e.target.closest(".mp")));
 $("mp").addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();go(e.target.closest(".mp"))}})}
 const orig=new WeakMap();
-function tx(){const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let n;while(n=w.nextNode()){if(/^(SCRIPT|STYLE)$/.test(n.parentNode.nodeName))continue;if(!orig.has(n))orig.set(n,n.nodeValue);const o=orig.get(n),t=o.trim();if(t&&(X[t]||LG==="uz"))n.nodeValue=o.replace(t,()=>tr(t))}}
+function tx(){const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let n;while(n=w.nextNode()){if(/^(SCRIPT|STYLE)$/.test(n.parentNode.nodeName))continue;if(!orig.has(n))orig.set(n,n.nodeValue);const o=orig.get(n),t=o.trim();if(t&&(X[t]||LG==="uz"||LG==="uzc"))n.nodeValue=o.replace(t,()=>tr(t))}}
 function setLang(l){LG=l;try{localStorage.setItem("th-lang",l)}catch(_){}
-  $("lg").value=l;document.documentElement.lang=l;document.title=tr("Havo.uz — O'zbekiston havo sifati monitoringi");
+  $("lg").value=l;document.documentElement.lang=l==="uzc"?"uz-Cyrl":l;document.title=tr("Havo.uz — O'zbekiston havo sifati monitoringi");
   document.querySelector('meta[name=description]').content=tr("O'zbekiston shaharlarida havo sifati, harorat va namlik real vaqtda, oddiy tilda va tavsiyalar bilan.");
   $("mp").setAttribute("aria-label",tr("O'zbekiston xaritasi"));
   tx();bs();bo();ps();render()}
