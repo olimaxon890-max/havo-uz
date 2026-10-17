@@ -9,10 +9,15 @@ Kerak: pip install requests
 """
 import os, requests
 
-CITIES = [("Toshkent",41.31,69.28),("Samarqand",39.65,66.96),("Buxoro",39.77,64.42),("Namangan",41.00,71.67),
- ("Andijon",40.78,72.34),("Nukus",42.46,59.61),("Farg'ona",40.38,71.78),("Qo'qon",40.53,70.94),
- ("Qarshi",38.86,65.79),("Termiz",37.22,67.28),("Jizzax",40.12,67.84),("Guliston",40.49,68.78),
- ("Navoiy",40.10,65.37),("Urganch",41.55,60.63)]
+CITIES = [
+ ("Toshkent",41.31,69.28), ("Samarqand",39.65,66.96), ("Buxoro",39.77,64.42), ("Namangan",41.0,71.67),
+ ("Andijon",40.78,72.34), ("Nukus",42.46,59.61), ("Farg'ona",40.38,71.78), ("Qo'qon",40.53,70.94),
+ ("Qarshi",38.86,65.79), ("Termiz",37.22,67.28), ("Jizzax",40.12,67.84), ("Guliston",40.49,68.78),
+ ("Navoiy",40.1,65.37), ("Urganch",41.55,60.63), ("Margilon",40.47,71.72), ("Angren",41.02,70.14),
+ ("Olmaliq",40.85,69.6), ("Chirchiq",41.47,69.58), ("Bekobod",40.22,69.27), ("Zarafshon",41.57,64.2),
+ ("Shahrisabz",39.06,66.83), ("Kattaqo'rg'on",39.9,66.26), ("Denov",38.27,67.89), ("Xiva",41.38,60.36),
+ ("Qo'ng'irot",43.07,58.9), ("Muynoq",43.77,59.02), ("Chust",41.0,71.23), ("Urgut",39.4,67.26),
+ ("Nurafshon",41.04,69.36), ("Yangiyer",40.27,68.82)]
 LEVELS = [(50,"Yaxshi"),(100,"O'rtacha"),(150,"Sezgirlar uchun zararli"),(200,"Zararli"),(10**9,"Juda zararli")]
 TOKEN, CHAT = os.environ["BOT_TOKEN"].strip(), os.environ["CHAT_ID"].strip()
 LIMIT = int(os.environ.get("AQI_LIMIT", "100"))
