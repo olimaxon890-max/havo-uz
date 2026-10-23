@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#1f3b3b">
 <meta name="color-scheme" content="dark">
-<title>Havo.uz — O'zbekiston havo sifati monitoringi</title>
-<meta name="description" content="O'zbekiston shaharlarida havo sifati, harorat va namlik real vaqtda, oddiy tilda va tavsiyalar bilan.">
+<title>Havo.uz: O'zbekiston havo sifati | Uzbekistan air quality</title>
+<meta name="description" content="O'zbekistonning 30 ta shahrida havo sifati (AQI), harorat, namlik va haftalik prognoz. Toshkent, Samarqand, Buxoro va boshqa shaharlar havosi. Air quality in Uzbekistan.">
 <style>
 :root{--bg:#1f3b3b;--card:#2c4f4d;--line:#4a7270;--mut:#b9d3cf;--g:#90ee90}
 *{box-sizing:border-box}
@@ -102,6 +102,14 @@ footer{padding-bottom:calc(30px + env(safe-area-inset-bottom))}
 @media(max-width:760px){#lg{width:auto;min-height:36px;margin:0 0 6px}}
 </style>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌿</text></svg>">
+<link rel="canonical" href="https://olimaxon890-max.github.io/havo-uz/">
+<meta name="robots" content="index,follow">
+<meta name="keywords" content="havo sifati, O'zbekiston havo, AQI, Toshkent havosi, havo ifloslanishi, ob-havo, Havo.uz">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Havo.uz: O'zbekiston havo sifati | Uzbekistan air quality">
+<meta property="og:description" content="O'zbekistonning 30 ta shahrida havo sifati, harorat va haftalik prognoz. Oddiy tilda va aniq tavsiyalar bilan.">
+<meta property="og:url" content="https://olimaxon890-max.github.io/havo-uz/">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Havo.uz","url":"https://olimaxon890-max.github.io/havo-uz/","inLanguage":["uz","ru","en"],"description":"O'zbekiston shaharlarida havo sifati monitoringi va haftalik prognoz"}</script>
 </head>
 <body>
 
@@ -330,8 +338,7 @@ $("mp").addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preven
 const orig=new WeakMap();
 function tx(){const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let n;while(n=w.nextNode()){if(/^(SCRIPT|STYLE)$/.test(n.parentNode.nodeName))continue;if(!orig.has(n))orig.set(n,n.nodeValue);const o=orig.get(n),t=o.trim();if(t&&(X[t]||LG==="uz"||LG==="uzc"))n.nodeValue=o.replace(t,()=>tr(t))}}
 function setLang(l){LG=l;try{localStorage.setItem("th-lang",l)}catch(_){}
-  $("lg").value=l;document.documentElement.lang=l==="uzc"?"uz-Cyrl":l;document.title=tr("Havo.uz — O'zbekiston havo sifati monitoringi");
-  document.querySelector('meta[name=description]').content=tr("O'zbekiston shaharlarida havo sifati, harorat va namlik real vaqtda, oddiy tilda va tavsiyalar bilan.");
+  $("lg").value=l;document.documentElement.lang=l==="uzc"?"uz-Cyrl":l;
   $("mp").setAttribute("aria-label",tr("O'zbekiston xaritasi"));
   tx();bs();bo();ps();render()}
 
